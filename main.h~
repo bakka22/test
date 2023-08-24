@@ -1,0 +1,10 @@
+#ifndef MAIN_H
+#define MAIN_H
+typedef struct node node;
+typedef struct node
+{
+	char data;
+	node *next;
+}node;
+node *sort(node *first);
+#endif
