@@ -13,9 +13,9 @@ node *sort(node *first)
 		next = first->next;
 		if (first->data > next->data)
 		{
-			tmp->data = first->data;
+			tmp.data = first->data;
 			first->data = next->data;
-			next->data = tmp->data;
+			next->data = tmp.data;
 			rep = 1;
 		}
 		now = first;
@@ -26,9 +26,9 @@ node *sort(node *first)
 				break;
 			if (now->data > next->data)
 			{
-				tmp->data = now->data;
+				tmp.data = now->data;
 				now->data = next->data;
-				next->data = tmp->data;
+				next->data = tmp.data;
 				rep = 1;
 			}
 			now = now->next;

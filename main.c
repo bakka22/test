@@ -1,41 +1,38 @@
-#include "main.h"
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
-
-int main(void)
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <string.h>
+int main ()
 {
-	int i;
-	node *first, *tmp;
+	pid_t child;
+	int status;
+	size_t i;
+	char *buf = NULL, *args[] = {buf};
 
-	first = malloc(sizeof(node));
-	tmp = first;
-	for (i = 3; i >= 0; i--)
+	while (1)
 	{
-		tmp->data = (48 + i);
-		tmp->next = malloc(sizeof(node));
-		tmp = tmp->next;
-	}
-	tmp->next = NULL;
-	tmp = first;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d%c\n", i, tmp->data);
-		tmp = tmp->next;
-	}
-	first = sort(first);
-	tmp = first;
-	for (i = 0; i < 4; i++)
-	{
-		printf("%d%c\n", i, tmp->data);
-		tmp = tmp->next;
-	}
-	tmp  = first;
-	for (i = 0; i < 4; i++)
-	{
-		first = tmp;
-		tmp = tmp->next;
-		free(first);
+		printf("$ ");
+		getline(&buf, &i, stdin);
+		child = fork();
+		buf[(strlen(buf) - 1)] = '\0';
+		if (child == -1)
+		{
+			perror("Error:\n");
+			exit(1);
+		}
+	
+		if (child == 0)
+		{
+			execve(buf, args, NULL);
+		}
+		else
+		{
+			wait(&status);
+		}
 	}
 	return (0);
 }
