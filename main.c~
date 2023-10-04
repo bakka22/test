@@ -12,13 +12,14 @@ int main ()
 	int status;
 	size_t i;
 	char *buf = NULL, *args[] = {buf};
+	extern char **environ;
 
 	while (1)
 	{
 		printf("$ ");
 		getline(&buf, &i, stdin);
 		child = fork();
-		buf[(strlen[buf] - 1)] = '\0';
+		buf[(strlen(buf) - 1)] = '\0';
 		if (child == -1)
 		{
 			perror("Error:\n");
@@ -27,7 +28,7 @@ int main ()
 	
 		if (child == 0)
 		{
-			execve(buf, args, NULL);
+			execve(buf, args, environ);
 		}
 		else
 		{

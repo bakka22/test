@@ -1,0 +1,11 @@
+#include "shell.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+int _setenv(const char *name, const char *value, int overwrite)
+{
+	extern char **environ;
+	int i = 0;
+
+	
+}

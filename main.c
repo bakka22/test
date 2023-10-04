@@ -12,6 +12,7 @@ int main ()
 	int status;
 	size_t i;
 	char *buf = NULL, *args[] = {buf};
+	extern char **environ;
 
 	while (1)
 	{
@@ -27,7 +28,10 @@ int main ()
 	
 		if (child == 0)
 		{
-			execve(buf, args, NULL);
+			if (strcmp(buf, "cd") == 0)
+				chdir("../");
+			else
+				execve(buf, args, environ);
 		}
 		else
 		{

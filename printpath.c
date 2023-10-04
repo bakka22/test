@@ -1,0 +1,20 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "shell.h"
+#include <string.h>
+void printpath()
+{
+	char *buf;
+
+	buf = _getenv("PATH");
+	if (buf)
+	{
+		buf = strtok(buf, "/");
+		while (buf)
+		{
+			printf("/%s\n", buf);
+			buf = strtok(NULL, "/");
+		}
+	}
+}
